@@ -26,15 +26,13 @@ void setup()
   pinMode(17, OUTPUT);
   
   // Setup analog output pins for analog sticks and triggers
-  // Using ESP32 GPIO pins 32-39 for ADC/PWM capabilities
+  // Using ESP32 GPIO pins 32-37 for ADC/PWM capabilities
   pinMode(32, OUTPUT);
   pinMode(33, OUTPUT);
   pinMode(34, OUTPUT);
   pinMode(35, OUTPUT);
   pinMode(36, OUTPUT);
   pinMode(37, OUTPUT);
-  pinMode(38, OUTPUT);
-  pinMode(39, OUTPUT);
 }
 
 void loop()

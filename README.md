@@ -2,16 +2,16 @@
 
 Use the PS4 controller with the ESP32. Developed for NJIT-ARPA 2026
 
-###### Licensed under GPLv3. Deriviations must be openly redistrobuted
+###### Licensed under GPLv3. Derivations must be openly redistrobuted
 
 ## Pinouts
 
-There are, in total, twenty-four pins in use.
+There are, in total, twenty-two pins in use.
 
 ##### Digital pins (sixteen pins): GPIO 2-17 (for boolean button states)
 
 - 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
 
-##### Analog pins (eight pins): GPIO 32-39 (for analog sticks and triggers)
+##### Analog pins (six pins): GPIO 32-37 (for analog sticks and triggers)
 
-- 32, 33, 34, 35, 36, 37, 38, 39
+- 32, 33, 34, 35, 36, 37
