@@ -10,6 +10,7 @@
             "includePath": [
                 "/home/okm/git/ESP32-PS4-Interface/include",
                 "/home/okm/git/ESP32-PS4-Interface/src",
+                "/home/okm/git/ESP32-PS4-Interface/.pio/libdeps/esp32dev/PS4_Controller_Host/src",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
@@ -206,7 +207,6 @@
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/variants/esp32",
-                "/home/okm/git/ESP32-PS4-Interface/lib/TETRIX_TeleOp",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                 "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
@@ -247,6 +247,7 @@
                 "path": [
                     "/home/okm/git/ESP32-PS4-Interface/include",
                     "/home/okm/git/ESP32-PS4-Interface/src",
+                    "/home/okm/git/ESP32-PS4-Interface/.pio/libdeps/esp32dev/PS4_Controller_Host/src",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
@@ -443,7 +444,6 @@
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/variants/esp32",
-                    "/home/okm/git/ESP32-PS4-Interface/lib/TETRIX_TeleOp",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                     "/home/okm/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
