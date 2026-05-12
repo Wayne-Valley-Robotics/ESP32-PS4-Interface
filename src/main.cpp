@@ -17,7 +17,13 @@ void setup()
   delay(1000);
   // Serial1.begin(115200);
   // serialTransfer.begin(Serial1);
-  if (PS4_Interface::init(PS4_TARGET_MAC))
+  bool isInit_BT;
+  if (PS4_TARGET_MAC) // if has any value
+    isInit_BT = PS4_Interface::init(PS4_TARGET_MAC);
+  else
+    isInit_BT = PS4_Interface::init();
+
+  if (isInit_BT)
   {
     Serial.print("Device address: ");
     PS4_Interface::printDeviceAddress();
@@ -27,6 +33,7 @@ void setup()
     {
       delay(100);
     }
+    delay(100);
     Serial.println("Reached target: Bluetooth");
   }
   else
@@ -45,9 +52,8 @@ void loop()
 
   if (inputsReady)
   {
-    // serialTransfer.sendDatum(inputStruct);
-    Serial.println(inputStruct.Circle);
     inputsReady = false;
+    serialTransfer.sendDatum(inputStruct);
   }
 
   delay(10);

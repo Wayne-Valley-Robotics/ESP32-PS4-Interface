@@ -8,9 +8,9 @@
 
 namespace PS4_Interface
 {
+    bool inputsReady;
     void updateInputs();
     void removePairedDevices();
-    void ps4SetLed(uint8_t r, uint8_t g, uint8_t b);
     void batteryWarnCycleProc();
 
     STRUCT inputStruct;
@@ -72,16 +72,11 @@ namespace PS4_Interface
 
     void updateInputs()
     {
-        if (!ps4IsConnected)
-        {
-            inputsReady = false;
-            return;
-        }
-
         inputsReady = true;
 
         // Digital values for boolean button states
         inputStruct.PSButton = PS4.PSButton();
+        inputStruct.Touchpad = PS4.Touchpad();
         inputStruct.Share = PS4.Share();
         inputStruct.Options = PS4.Options();
         inputStruct.L1 = PS4.L1();
@@ -90,8 +85,7 @@ namespace PS4_Interface
         inputStruct.R1 = PS4.R1();
         inputStruct.R2 = PS4.R2();
         inputStruct.R3 = PS4.R3();
-        inputStruct.Touchpad = PS4.Touchpad();
-        
+
         inputStruct.Up = PS4.Up();
         inputStruct.Down = PS4.Down();
         inputStruct.Left = PS4.Left();
@@ -101,7 +95,8 @@ namespace PS4_Interface
         inputStruct.Circle = PS4.Circle();
         inputStruct.Square = PS4.Square();
         inputStruct.Triangle = PS4.Triangle();
-        
+
+        // Analog values for byte inputs
         inputStruct.LStickX = PS4.LStickX();
         inputStruct.LStickY = PS4.LStickY();
         inputStruct.RStickX = PS4.RStickX();
@@ -110,38 +105,12 @@ namespace PS4_Interface
         inputStruct.R2Value = PS4.R2Value();
     }
 
-    void ps4SetLed(uint8_t r, uint8_t g, uint8_t b)
-    {
-        PS4.setLed(r, g, b);
-    }
-
     // Battery warning cycle process
     void batteryWarnCycleProc()
     {
+        uint8_t batteryLevel = PS4.Battery();
         uint8_t currentColor[3] = {0, 255, 0};
-        uint8_t maxColor = 255;
-        uint8_t fadeStep = maxColor / (fadeSpeedMillis / 10);
-        uint8_t currentFade = 0;
 
-        // Fade to 0
-        for (uint8_t i = 0; i < maxColor; i++)
-        {
-            currentColor[1] = maxColor - i;
-            currentColor[2] = maxColor - i;
-            PS4.setLed(0, currentColor[1], currentColor[2]);
-            delay(10);
-        }
-
-        // Keep red at max
-        PS4.setLed(maxColor, 0, 0);
-
-        // Fade back to original color
-        for (uint8_t i = 0; i < maxColor; i++)
-        {
-            currentColor[1] = i;
-            currentColor[2] = i;
-            PS4.setLed(maxColor, currentColor[1], currentColor[2]);
-            delay(10);
-        }
+        PS4.setLed(CONTROLLER_LED_COLOR);
     }
 }
