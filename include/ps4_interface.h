@@ -3,9 +3,7 @@
 
 namespace PS4_Interface
 {
-    constexpr uint16_t fadeSpeedMillis = 4000;
-
-    static bool inputsReady = false;
+    extern bool inputsReady;
 
     // Struct definition (can be in header for single-file projects)
     struct __attribute__((packed)) STRUCT
@@ -13,19 +11,24 @@ namespace PS4_Interface
         bool PSButton;
         bool Share;
         bool Options;
+        bool L1;
+        bool L2;
         bool L3;
+        bool R1;
+        bool R2;
         bool R3;
         bool Touchpad;
+
         bool Up;
         bool Down;
         bool Left;
         bool Right;
+
         bool Cross;
         bool Circle;
         bool Square;
         bool Triangle;
-        bool L1;
-        bool R1;
+
         uint16_t LStickX;
         uint16_t LStickY;
         uint16_t RStickX;
@@ -41,6 +44,5 @@ namespace PS4_Interface
     void printDeviceAddress();
     void onConnect();
     void onDisconnect();
-    void ps4SetLed(uint8_t r, uint8_t g, uint8_t b);
     void batteryWarnCycleProc();
 }
