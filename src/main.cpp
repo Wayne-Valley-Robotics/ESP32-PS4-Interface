@@ -19,7 +19,10 @@ void setup()
   // serialTransfer.begin(Serial1);
   if (PS4_Interface::init(PS4_TARGET_MAC))
   {
-    Serial.println("Waiting for controller... but im never gonna find it :(");
+    Serial.print("Device address: ");
+    PS4_Interface::printDeviceAddress();
+    Serial.println();
+    Serial.println("Waiting for controller...");
     while (!PS4_Interface::inputsReady)
     {
       delay(100);
