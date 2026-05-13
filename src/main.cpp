@@ -19,8 +19,8 @@ void setup()
   // arduino_OTA::init();            // Auto: try WiFi, fall back to OTA
 
   delay(1000);
-  Serial1.begin(115200);
-  serialTransfer.begin(Serial1);
+  Serial2.begin(115200);
+  serialTransfer.begin(Serial2);
   bool isInit_BT;
   if (PS4_TARGET_MAC) // if has any value
     isInit_BT = PS4_Interface::init(PS4_TARGET_MAC);
