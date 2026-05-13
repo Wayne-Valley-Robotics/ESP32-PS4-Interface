@@ -62,6 +62,7 @@ namespace PS4_Interface
 
     void onConnect()
     {
+        setLED();
         digitalWrite(2, HIGH);
         Serial.println("Connected!");
     }
@@ -103,16 +104,37 @@ namespace PS4_Interface
         inputStruct.LStickY = PS4.LStickY();
         inputStruct.RStickX = PS4.RStickX();
         inputStruct.RStickY = PS4.RStickY();
-        inputStruct.L2Value = PS4.L2Value();
-        inputStruct.R2Value = PS4.R2Value();
+
+        inputStruct.battery = PS4.Battery();
+        inputStruct.charging = PS4.Charging();
+        inputStruct.audio = PS4.Audio();
+        inputStruct.mic = PS4.Mic();
+
+        inputStruct.gyro_x = PS4.GyrX();
+        inputStruct.gyro_y = PS4.GyrY();
+        inputStruct.gyro_z = PS4.GyrZ();
+        inputStruct.accel_x = PS4.AccX();
+        inputStruct.accel_y = PS4.AccY();
+        inputStruct.accel_z = PS4.AccZ();
     }
 
-    // Battery warning cycle process
-    void batteryWarnCycleProc()
+    // TODO: make cool pulsing animations 🤑🤑
+    void setLED()
     {
         uint8_t batteryLevel = PS4.Battery();
-        uint8_t currentColor[3] = {0, 255, 0};
-
-        PS4.setLed(CONTROLLER_LED_COLOR);
+        if (batteryLevel < 60)
+            PS4.setLed(255, 0, 0);
+        else if (batteryLevel < 30)
+            PS4.setLed(255, 255, 0);
+        else
+            PS4.setLed(CONTROLLER_LED_COLOR);
     }
+    // Battery warning cycle process
+    // void batteryWarnCycleProc()
+    // {
+    //     uint8_t batteryLevel = PS4.Battery();
+    //     uint8_t currentColor[3] = {0, 255, 0};
+
+    //     PS4.setLed(CONTROLLER_LED_COLOR);
+    // }
 }

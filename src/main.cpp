@@ -12,13 +12,7 @@ void setup()
 
   Serial.begin(115200);
   Serial.println("boot");
-
-  // Choose your mode:
-  // arduino_OTA::initWiFiOnly();     // WiFi only, no OTA
-  // arduino_OTA::initOTAOnly();     // OTA only (firmware updates)
-  // arduino_OTA::init();            // Auto: try WiFi, fall back to OTA
-
-  delay(1000);
+  delay(500);
   Serial2.begin(115200);
   serialTransfer.begin(Serial2);
   bool isInit_BT;
@@ -35,9 +29,8 @@ void setup()
     Serial.println("Waiting for controller...");
     while (!PS4_Interface::inputsReady)
     {
-      delay(100);
+      delay(20);
     }
-    delay(100);
     Serial.println("Reached target: Bluetooth");
   }
   else
@@ -58,11 +51,8 @@ void loop()
   {
     inputsReady = false;
     serialTransfer.sendDatum(inputStruct);
-    ConnectivityTestState(PS4_Interface::inputStruct.PSButton);
+    ConnectivityTestState(inputStruct.PSButton);
   }
-
-  serialTransfer.tick(); // redundant?
-  delay(10);
 }
 
 void ConnectivityTestState(bool testInput)
