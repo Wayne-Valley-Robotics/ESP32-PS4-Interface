@@ -4,8 +4,12 @@
 
 SerialTransfer serialTransfer;
 
+void ConnectivityTestState();
+
 void setup()
 {
+  pinMode(2, OUTPUT); // builtin led
+
   Serial.begin(115200);
   Serial.println("boot");
 
@@ -15,8 +19,8 @@ void setup()
   // arduino_OTA::init();            // Auto: try WiFi, fall back to OTA
 
   delay(1000);
-  // Serial1.begin(115200);
-  // serialTransfer.begin(Serial1);
+  Serial1.begin(115200);
+  serialTransfer.begin(Serial1);
   bool isInit_BT;
   if (PS4_TARGET_MAC) // if has any value
     isInit_BT = PS4_Interface::init(PS4_TARGET_MAC);
@@ -54,7 +58,20 @@ void loop()
   {
     inputsReady = false;
     serialTransfer.sendDatum(inputStruct);
+    ConnectivityTestState(PS4_Interface::inputStruct.PSButton);
   }
 
+  serialTransfer.tick(); // redundant?
   delay(10);
+}
+
+void ConnectivityTestState(bool testInput)
+{
+  static bool cachedState;
+
+  if (cachedState != testInput)
+  {
+    digitalWrite(2, !testInput);
+    cachedState = testInput;
+  }
 }
