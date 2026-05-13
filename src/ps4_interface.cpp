@@ -62,11 +62,13 @@ namespace PS4_Interface
 
     void onConnect()
     {
+        digitalWrite(2, HIGH);
         Serial.println("Connected!");
     }
 
     void onDisconnect()
     {
+        digitalWrite(2, LOW);
         Serial.println("Disconnected!");
     }
 
