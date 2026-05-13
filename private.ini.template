@@ -2,3 +2,22 @@
 [secrets]
 build_flags =
     -D PS4_TARGET_MAC=\"00:00:00:00:00:00\" ; this is the mac address of the device that the ps4 controller thinks it's paired to. the library will emulate that address so you don't have to pair it. or really cant. you cant pair it you have to do it this way lol
+    -D FW_VERSION=\"1.0.0\"
+    -D ENABLE_WATCHDOG=1
+    -D ENABLE_OTA=1
+    -D ENABLE_LOGGING=1
+
+[ota]
+password = change_this_secure_password
+verify_signature = true
+rollback_on_failure = true
+
+[logging]
+level = DEBUG
+file_path = /config/logs.txt
+max_size = 10240
+rotate = true
+
+[watchdog]
+timeout = 10
+panic = true

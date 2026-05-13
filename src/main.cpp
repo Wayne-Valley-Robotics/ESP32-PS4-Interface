@@ -1,10 +1,13 @@
 #include <Arduino.h>
 #include <SerialTransfer.h>
+#include <ArduinoOTA.h>
+#include <EEPROM.h>
 #include "ps4_interface.h"
 
 SerialTransfer serialTransfer;
 
 void ConnectivityTestState(bool testInput);
+void loadConfigFromEEPROM();
 
 void setup()
 {
@@ -13,10 +16,16 @@ void setup()
   Serial.begin(115200);
   Serial.println("boot");
 
-  // Choose your mode:
-  // arduino_OTA::initWiFiOnly();     // WiFi only, no OTA
-  // arduino_OTA::initOTAOnly();     // OTA only (firmware updates)
-  // arduino_OTA::init();            // Auto: try WiFi, fall back to OTA
+  // Initialize OTA
+  ArduinoOTA.begin();
+  ArduinoOTA.setHostname("ESP32-PS4-Interface");
+  ArduinoOTA.setPassword("secure_password_here");  // Change this
+
+  // EEPROM for persistent config
+  EEPROM.begin(512);
+  
+  // Load config from EEPROM
+  loadConfigFromEEPROM();
 
   delay(1000);
   Serial1.begin(115200);
@@ -61,6 +70,14 @@ void loop()
     ConnectivityTestState(PS4_Interface::inputStruct.PSButton);
   }
 
+  // Check heap fragmentation
+  if (esp_get_free_heap_size() < 10000) {
+    Serial.println("WARNING: Low heap memory!");
+  }
+  
+  // OTA updates
+  ArduinoOTA.handle();
+  
   serialTransfer.tick(); // redundant?
   delay(10);
 }
@@ -73,5 +90,12 @@ void ConnectivityTestState(bool testInput)
   {
     digitalWrite(2, !testInput);
     cachedState = testInput;
+  }
+}
+
+void loadConfigFromEEPROM() {
+  // Load MAC address from EEPROM if not set
+  if (!PS4_TARGET_MAC) {
+    // EEPROM.get(0, PS4_TARGET_MAC);
   }
 }

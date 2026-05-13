@@ -4,7 +4,9 @@
 namespace PS4_Interface
 {
     extern bool inputsReady;
-
+    extern uint8_t batteryLevel;
+    extern uint8_t firmwareVersion;
+    
     // Struct definition (can be in header for single-file projects)
     struct __attribute__((packed)) STRUCT
     {
@@ -45,4 +47,17 @@ namespace PS4_Interface
     void onConnect();
     void onDisconnect();
     void batteryWarnCycleProc();
+    
+    // New function declarations for production readiness
+    void saveConfigToEEPROM();
+    void loadConfigFromEEPROM();
+    void resetToFactoryDefaults();
+    bool verifyOTAUpdate();
+    void handleOTAUpdate();
+    void logError(const char* message);
+    void logWarning(const char* message);
+    void logInfo(const char* message);
+    uint8_t getBatteryLevel();
+    uint8_t getFirmwareVersion();
+    void setFirmwareVersion(uint8_t version);
 }

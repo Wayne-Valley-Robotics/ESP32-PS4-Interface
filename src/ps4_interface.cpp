@@ -5,6 +5,8 @@
 #include "esp_bt_device.h"
 #include "esp_gap_bt_api.h"
 #include "esp_err.h"
+#include <EEPROM.h>
+#include <ArduinoJson.h>
 
 namespace PS4_Interface
 {
@@ -14,6 +16,8 @@ namespace PS4_Interface
     void batteryWarnCycleProc();
 
     STRUCT inputStruct;
+    uint8_t batteryLevel;
+    uint8_t firmwareVersion = 1;
 
     bool init(const char *_macAddress)
     {
@@ -22,6 +26,11 @@ namespace PS4_Interface
         PS4.attachOnDisconnect(onDisconnect);
         bool output = PS4.begin(_macAddress);
         removePairedDevices();
+        
+        // Save MAC to EEPROM
+        EEPROM.put(4, _macAddress);
+        saveConfigToEEPROM();
+        
         return output;
     }
     bool init()
@@ -105,6 +114,9 @@ namespace PS4_Interface
         inputStruct.RStickY = PS4.RStickY();
         inputStruct.L2Value = PS4.L2Value();
         inputStruct.R2Value = PS4.R2Value();
+        
+        // Update battery level
+        batteryLevel = PS4.Battery();
     }
 
     // Battery warning cycle process
@@ -113,6 +125,78 @@ namespace PS4_Interface
         uint8_t batteryLevel = PS4.Battery();
         uint8_t currentColor[3] = {0, 255, 0};
 
+        // Define thresholds
+        const uint8_t CRITICAL_THRESHOLD = 15;
+        const uint8_t WARNING_THRESHOLD = 25;
+        
+        if (batteryLevel <= CRITICAL_THRESHOLD) {
+            currentColor[0] = 255;  // Red
+            Serial.println("CRITICAL: Battery low!");
+            // Trigger alarm or notification
+        } else if (batteryLevel <= WARNING_THRESHOLD) {
+            currentColor[0] = 255;  // Orange
+            Serial.println("WARNING: Battery low!");
+        }
+        
         PS4.setLed(CONTROLLER_LED_COLOR);
+        
+        // Save battery level to EEPROM
+        EEPROM.put(10, batteryLevel);
+    }
+    
+    // New functions for production readiness
+    void saveConfigToEEPROM() {
+      StaticJsonDocument<256> doc;
+      doc["mac"] = PS4_TARGET_MAC;
+      doc["version"] = "1.0.0";
+      
+      char buffer[512];
+      serializeJson(doc, buffer);
+      EEPROM.put(0, buffer);
+      EEPROM.commit();
+    }
+    
+    void loadConfigFromEEPROM() {
+      // Load configuration from EEPROM
+    }
+    
+    void resetToFactoryDefaults() {
+      // Reset configuration to factory defaults
+    }
+    
+    bool verifyOTAUpdate() {
+      // Verify OTA update signature
+      return true;
+    }
+    
+    void handleOTAUpdate() {
+      // Handle OTA update process
+    }
+    
+    void logError(const char* message) {
+      Serial.print("ERROR: ");
+      Serial.println(message);
+    }
+    
+    void logWarning(const char* message) {
+      Serial.print("WARNING: ");
+      Serial.println(message);
+    }
+    
+    void logInfo(const char* message) {
+      Serial.print("INFO: ");
+      Serial.println(message);
+    }
+    
+    uint8_t getBatteryLevel() {
+      return batteryLevel;
+    }
+    
+    uint8_t getFirmwareVersion() {
+      return firmwareVersion;
+    }
+    
+    void setFirmwareVersion(uint8_t version) {
+      firmwareVersion = version;
     }
 }

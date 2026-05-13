@@ -60,3 +60,34 @@ jobs:
           echo "Building all environments defined in platformio.ini"
           # Use the python module runner to avoid PATH/launcher issues across OSes
           python -m platformio run
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: .pioenvs
+
+      - name: Run tests
+        run: |
+          python -m platformio run --target=test
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+  deploy:
+    name: Deploy to production
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: .pioenvs
+
+      - name: Deploy to device
+        run: |
+          # Add deployment logic here
+          echo "Deploying to production devices..."
