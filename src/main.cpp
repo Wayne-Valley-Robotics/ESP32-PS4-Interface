@@ -4,7 +4,7 @@
 
 SerialTransfer serialTransfer;
 
-void ConnectivityTestState();
+void ConnectivityTestState(bool testInput);
 
 void setup()
 {
