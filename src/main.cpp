@@ -12,41 +12,43 @@ void setup()
 
   Serial.begin(115200);
   Serial.println("boot");
-  delay(500);
   Serial2.begin(115200);
   serialTransfer.begin(Serial2);
   bool isInit_BT;
-  if (PS4_TARGET_MAC) // if has any value
-    isInit_BT = PS4_Interface::init(PS4_TARGET_MAC);
-  else
-    isInit_BT = PS4_Interface::init();
-
-  if (isInit_BT)
+#if EMULATE_MAC_ADDRESS
+  isInit_BT = PS4_Interface::init(EMULATED_MAC_ADDRESS);
+#else
+  isInit_BT = PS4_Interface::init();
+#endif
+  if (!isInit_BT)
   {
-    Serial.print("Device address: ");
-    PS4_Interface::printDeviceAddress();
-    Serial.println();
-    Serial.println("Waiting for controller...");
-    while (!PS4_Interface::inputsReady)
-    {
-      delay(20);
-    }
-    Serial.println("Reached target: Bluetooth");
-  }
-  else
-  {
+    bool ledState = true;
     while (1)
     {
       Serial.println("FATAL: Bluetooth init failed.");
-      delay(5000);
+      digitalWrite(2, ledState);
+      ledState = !ledState;
+      delay(1000);
     }
   }
+
+  Serial.print("Device address: ");
+  PS4_Interface::printDeviceAddress();
+  Serial.println();
+  Serial.println("Waiting for controller...");
+  while (!PS4_Interface::inputsReady)
+  {
+    delay(20);
+  }
+  Serial.println("Reached target: Bluetooth");
 }
 
 void loop()
 {
   using namespace PS4_Interface;
 
+  // hold on. if we get notified on every update, why dont we just immediately send the data from there?
+  // needs a simple refactor but come on seriously??? why didnt i think of that
   if (inputsReady)
   {
     inputsReady = false;

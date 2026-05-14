@@ -5,8 +5,9 @@ build_flags =
 
     -D CONTROLLER_LED_COLOR=0,255,0
 
-    ; Remove the semicolon to make the ESP32 emulate the listed MAC address.
-     -D PS4_TARGET_MAC=;\"00:00:00:00:00:00\"
+    ; Set to true to make the ESP32 emulate the listed MAC address.
+     -D EMULATE_MAC_ADDRESS=false
+     -D EMULATED_MAC_ADDRESS=\"00:00:00:00:00:00\"
 
     ; Use this if you already know what address the PS4 controller is paired
     ; to, and don't want to re-pair it.
@@ -14,6 +15,7 @@ build_flags =
     ; the ESP32's real MAC address, then write it to the PS4 controller with
     ; the SixAxisPairTool. It's a real thing I promise I don't know why it's
     ; like lost media to find lol
-    ; I had trouble pairing it to a PC and then copying the PC's address and
+    ; I had trouble pairing it to a PC and then copying the PC's MAC address and
     ; pasting it here. I'm assuming there's some kind of encryption key
-    ; exchange that happens so don't get stuck there like I did
+    ; exchange that happens so don't get stuck there like I did. Needless to
+    ; say that did not work.

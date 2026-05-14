@@ -12,26 +12,30 @@ namespace PS4_Interface
     void updateInputs();
     void removePairedDevices();
     void batteryWarnCycleProc();
+    void attachEvents();
 
     STRUCT inputStruct;
 
     bool init(const char *_macAddress)
     {
-        PS4.attach(updateInputs);
-        PS4.attachOnConnect(onConnect);
-        PS4.attachOnDisconnect(onDisconnect);
+        attachEvents();
         bool output = PS4.begin(_macAddress);
         removePairedDevices();
         return output;
     }
     bool init()
     {
-        PS4.attach(updateInputs);
-        PS4.attachOnConnect(onConnect);
-        PS4.attachOnDisconnect(onDisconnect);
+        attachEvents();
         bool output = PS4.begin();
         removePairedDevices();
         return output;
+    }
+
+    void attachEvents()
+    {
+        PS4.attach(updateInputs);
+        PS4.attachOnConnect(onConnect);
+        PS4.attachOnDisconnect(onDisconnect);
     }
 
     void removePairedDevices()
