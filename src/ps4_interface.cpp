@@ -14,7 +14,7 @@ namespace PS4_Interface
     void batteryWarnCycleProc();
     void attachEvents();
 
-    STRUCT inputStruct;
+    INPUT_STRUCT inputStruct;
 
     bool init(const char *_macAddress)
     {

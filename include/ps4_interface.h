@@ -30,7 +30,7 @@ namespace PS4_Interface
 
     */
 
-    struct __attribute__((packed)) STRUCT
+    struct __attribute__((packed)) INPUT_STRUCT
     {
         /*********************/
         /*   B U T T O N S   */
@@ -91,7 +91,7 @@ namespace PS4_Interface
         int16_t accel_z;
     };
 
-    extern STRUCT inputStruct;
+    extern INPUT_STRUCT inputStruct;
 
     bool init(const char *_macAddress);
     bool init();
