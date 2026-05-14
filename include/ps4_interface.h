@@ -26,17 +26,18 @@ namespace PS4_Interface
         bool Triangle;
         bool L1;
         bool R1;
-        uint16_t GyrX;
-        uint16_t GyrY;
-        uint16_t GyrZ;
-        uint16_t AccX;
-        uint16_t AccY;
-        uint16_t AccZ;
+        uint16_t LStickX;
+        uint16_t LStickY;
+        uint16_t RStickX;
+        uint16_t RStickY;
+        uint16_t L2Value;
+        uint16_t R2Value;
     };
 
     extern STRUCT inputStruct;
 
     bool init(const char *_macAddress);
+    bool init();
     void printDeviceAddress();
     void onConnect();
     void onDisconnect();
