@@ -25,7 +25,7 @@ namespace PS4_Interface
         reports a max of 100, but I'm not sure so please
         reference the library
         https://github.com/pablomarquez76/PS4_Controller_Host/blob/main/examples/PS4ReceiveData/PS4ReceiveData.ino
-        
+
         https://github.com/pablomarquez76/PS4_Controller_Host/
 
     */
@@ -52,10 +52,7 @@ namespace PS4_Interface
         uint8_t Options : 1;
 
         uint8_t L1 : 1;
-        uint8_t L2 : 1;
-
         uint8_t R1 : 1;
-        uint8_t R2 : 1;
 
         uint8_t R3 : 1;
         uint8_t L3 : 1;
@@ -68,6 +65,9 @@ namespace PS4_Interface
         int8_t LStickY;
         int8_t RStickX;
         int8_t RStickY;
+
+        uint8_t L2;
+        uint8_t R2;
 
         /*******************************/
         /*   S T A T U S   F L A G S   */

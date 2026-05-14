@@ -81,39 +81,44 @@ namespace PS4_Interface
     {
         inputsReady = true;
 
-        // Digital values for boolean button states
-        inputStruct.PSButton = PS4.PSButton();
-        inputStruct.Touchpad = PS4.Touchpad();
-        inputStruct.Share = PS4.Share();
-        inputStruct.Options = PS4.Options();
-        inputStruct.L1 = PS4.L1();
-        inputStruct.L2 = PS4.L2();
-        inputStruct.L3 = PS4.L3();
-        inputStruct.R1 = PS4.R1();
-        inputStruct.R2 = PS4.R2();
-        inputStruct.R3 = PS4.R3();
+        // Buttons
+        inputStruct.Cross = PS4.Cross();
+        inputStruct.Circle = PS4.Circle();
+        inputStruct.Square = PS4.Square();
+        inputStruct.Triangle = PS4.Triangle();
 
         inputStruct.Up = PS4.Up();
         inputStruct.Down = PS4.Down();
         inputStruct.Left = PS4.Left();
         inputStruct.Right = PS4.Right();
 
-        inputStruct.Cross = PS4.Cross();
-        inputStruct.Circle = PS4.Circle();
-        inputStruct.Square = PS4.Square();
-        inputStruct.Triangle = PS4.Triangle();
+        inputStruct.PSButton = PS4.PSButton();
+        inputStruct.Touchpad = PS4.Touchpad();
+        inputStruct.Share = PS4.Share();
+        inputStruct.Options = PS4.Options();
 
-        // Analog values for byte inputs
+        inputStruct.L1 = PS4.L1();
+        inputStruct.R1 = PS4.R1();
+
+        inputStruct.R3 = PS4.R3();
+        inputStruct.L3 = PS4.L3();
+
+        // Analog
         inputStruct.LStickX = PS4.LStickX();
         inputStruct.LStickY = PS4.LStickY();
         inputStruct.RStickX = PS4.RStickX();
         inputStruct.RStickY = PS4.RStickY();
 
+        inputStruct.L2 = PS4.L2();
+        inputStruct.R2 = PS4.R2();
+
+        // Status Flags
         inputStruct.battery = PS4.Battery();
         inputStruct.charging = PS4.Charging();
         inputStruct.audio = PS4.Audio();
         inputStruct.mic = PS4.Mic();
 
+        // Sensors
         inputStruct.gyro_x = PS4.GyrX();
         inputStruct.gyro_y = PS4.GyrY();
         inputStruct.gyro_z = PS4.GyrZ();
